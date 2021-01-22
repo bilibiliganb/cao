@@ -7,7 +7,7 @@ namespace pp
         SqlConnection sc;
         public SqlConnection connect()
         {
-            string str = @"Data Source=(local)\HQ;Initial Catalog=pp;Integrated Security=True";//数据库链接字符串
+            string str = @"Data Source=(local)\XA;Initial Catalog=pp;Integrated Security=True";//数据库链接字符串
             sc = new SqlConnection(str);//创建数据库链接对象
             sc.Open();//打开数据库
             return sc;//返回数据库

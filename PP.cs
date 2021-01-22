@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PPClient;
+
 
 namespace pp
 {
@@ -32,22 +34,28 @@ namespace pp
         public void login()
         {
 
-                Dao dao = new Dao();
-                string sql = "select * from t_user where id='" + textBox1.Text + "'and psw='" + textBox2.Text + "'";
-                IDataReader dc = dao.read(sql);
-                if (dc.Read())
-                {
-                    Data.UID = dc["id"].ToString();
-                    Data.UName = dc["name"].ToString();
-                    MessageBox.Show("登录成功");
-                    this.Hide();
-                    this.Show();
-                }
-                else
-                {
-                    MessageBox.Show("登录失败");
-                }
-                dao.Daoclose();
+            Dao dao = new Dao();
+            string sql = "select * from t_userbase where id='" + textBox1.Text + "'and psw='" + textBox2.Text + "'";
+            IDataReader dc = dao.read(sql);
+            if (dc.Read())
+            {
+                Data.UID = dc["id"].ToString();
+                Data.UName = dc["name"].ToString();
+                MessageBox.Show("登录成功");
+                this.Hide();
+                //Usertalk a = new Usertalk();
+                //a.ShowDialog();
+                //Form1 a = new Form1();
+                Usermain a = new Usermain();
+                a.ShowDialog();
+
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("登录失败");
+            }
+            dao.Daoclose();
 
         }
 

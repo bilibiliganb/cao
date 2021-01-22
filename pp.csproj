@@ -48,6 +48,18 @@
   <ItemGroup>
     <Compile Include="Dao.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="Usermain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Usermain.Designer.cs">
+      <DependentUpon>Usermain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usertalk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Usertalk.Designer.cs">
+      <DependentUpon>Usertalk.cs</DependentUpon>
+    </Compile>
     <Compile Include="PP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,6 +68,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Usermain.resx">
+      <DependentUpon>Usermain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usertalk.resx">
+      <DependentUpon>Usertalk.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PP.resx">
       <DependentUpon>PP.cs</DependentUpon>
     </EmbeddedResource>
@@ -67,6 +85,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -80,6 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PPClient\PPClient.csproj">
+      <Project>{6dd3d854-0fbc-4963-829e-5bfaef69c801}</Project>
+      <Name>PPClient</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
