@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FD5C0D1C-7095-45C8-B6BB-1B8EBB66CB82}</ProjectGuid>
+    <ProjectGuid>{4F7669FF-7330-45CB-8705-187782008592}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>pp</RootNamespace>
-    <AssemblyName>pp</AssemblyName>
+    <RootNamespace>PPserver</RootNamespace>
+    <AssemblyName>PPserver</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,46 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Correspondence.cs" />
-    <Compile Include="Dao.cs" />
-    <Compile Include="Data.cs" />
-    <Compile Include="FindBack.cs">
+    <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FindBack.Designer.cs">
-      <DependentUpon>FindBack.cs</DependentUpon>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Usermain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Usermain.Designer.cs">
-      <DependentUpon>Usermain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Usertalk.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Usertalk.Designer.cs">
-      <DependentUpon>Usertalk.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PP.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PP.Designer.cs">
-      <DependentUpon>PP.cs</DependentUpon>
-    </Compile>
+    <Compile Include="PPserverCorrespondence.cs" />
+    <Compile Include="PPserverDao.cs" />
+    <Compile Include="PPserverData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FindBack.resx">
-      <DependentUpon>FindBack.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Usermain.resx">
-      <DependentUpon>Usermain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Usertalk.resx">
-      <DependentUpon>Usertalk.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PP.resx">
-      <DependentUpon>PP.cs</DependentUpon>
+    <Compile Include="UserManagement.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -95,7 +69,6 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -109,16 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\验证码\验证码\验证码.csproj">
-      <Project>{2b61eea2-cffb-4446-986c-c06d75c13654}</Project>
-      <Name>验证码</Name>
-    </ProjectReference>
-    <ProjectReference Include="PPserver\PPserver.csproj">
-      <Project>{4f7669ff-7330-45cb-8705-187782008592}</Project>
-      <Name>PPserver</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
