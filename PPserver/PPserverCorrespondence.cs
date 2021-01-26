@@ -116,27 +116,25 @@ namespace PPserver
 
         public class Interpreter     //将对客户端发送的command对象序列化，将收到的反序列化，可以
         {
-            public static string getSerialization(Command command)              //将Command对象序列化
+            public static byte[] getSerialization(Command command)              //将Command对象序列化
             {
-                string jsonStr = @"D:\runtime\" + DateTime.Now.ToString("yyMMddhhmmss") + ".dat";             //将序列化的文件名作为序列化的结果
-                FileStream fileStream = new FileStream(jsonStr, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
-                BinaryFormatter b = new BinaryFormatter();
-                b.Serialize(fileStream, command);
-                fileStream.Flush();
-                fileStream.Close();
-                fileStream.Dispose();
-                return jsonStr;
+                using(MemoryStream m=new MemoryStream()) {
+                    BinaryFormatter b = new BinaryFormatter();
+                    b.Serialize(m, command);
+                    byte[] buffer = m.GetBuffer();
+                    return buffer;
+                }
             }
 
-            public static Command deserialize(string jsonStr)    //将jsonstr转化成Command对象，静态共有方法
+            public static Command deserialize(byte[] buffer)    //将jsonstr转化成Command对象，静态共有方法
             {
-                FileStream fileStream = new FileStream(jsonStr, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                BinaryFormatter b = new BinaryFormatter();
-                Command rs = b.Deserialize(fileStream) as Command;
-
-                File.Delete(jsonStr);
-                   
-                return rs;
+                using (MemoryStream m = new MemoryStream(buffer))
+                {
+                    m.Position = 0;
+                    BinaryFormatter b = new BinaryFormatter();
+                    Command rs = b.Deserialize(m) as Command;
+                    return rs;
+                }
             }
         }
 
@@ -215,7 +213,7 @@ namespace PPserver
                 {
                     byte[] buffer = new byte[1024 * 1024 * 2];
                     socketSend.Receive(buffer);
-                    entity.command = Interpreter.deserialize(Encoding.UTF8.GetString(buffer));
+                    entity.command = Interpreter.deserialize(buffer);
                     entity.datetime = DateTime.Now;
                 }
             }
@@ -223,8 +221,7 @@ namespace PPserver
             {
                 try
                 {
-                    string str = Interpreter.getSerialization(comd);
-                    byte[] buffer = System.Text.Encoding.UTF8.GetBytes(str);
+                    byte[] buffer = Interpreter.getSerialization(comd); 
                     socketSends[socket].Send(buffer);
                 }
                 catch { }
@@ -275,7 +272,7 @@ namespace PPserver
                     {
                         sb.allDone = allDone;
                     }
-                    byte[] buffer = Encoding.UTF8.GetBytes(Interpreter.getSerialization(comd));
+                    byte[] buffer = Interpreter.getSerialization(comd);
                     sb.socketWorker.BeginSend(buffer, 0, buffer.Length, 0, new AsyncCallback(sendCallBack), sb);
                 }
                 catch
@@ -327,7 +324,7 @@ namespace PPserver
                     if (b > 0)
                     {
                         sb.str.Append(Encoding.UTF8.GetString(sb.buffer,0,b));
-                        entity.command = Interpreter.deserialize(sb.str.ToString());
+                        entity.command = Interpreter.deserialize(sb.buffer);
                         entity.datetime = DateTime.Now;
                     }
                     if (sb.allDone != null)

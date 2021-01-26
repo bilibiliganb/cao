@@ -23,7 +23,7 @@ namespace pp
         private void Usermain_Load(object sender, EventArgs e)
         {
             label1.Text = Data.UName;
-            string path = @"touxiang.jpg";
+            string path = @"123.jpg";
             Image image = Image.FromFile(path);
             pictureBox1.Image=image;
             try

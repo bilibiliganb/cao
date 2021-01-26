@@ -61,6 +61,12 @@
     <Compile Include="Usermain.Designer.cs">
       <DependentUpon>Usermain.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserRegister.Designer.cs">
+      <DependentUpon>UserRegister.cs</DependentUpon>
+    </Compile>
     <Compile Include="Usertalk.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Usermain.resx">
       <DependentUpon>Usermain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserRegister.resx">
+      <DependentUpon>UserRegister.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Usertalk.resx">
       <DependentUpon>Usertalk.cs</DependentUpon>
@@ -111,10 +120,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\验证码\验证码\验证码.csproj">
-      <Project>{2b61eea2-cffb-4446-986c-c06d75c13654}</Project>
-      <Name>验证码</Name>
-    </ProjectReference>
     <ProjectReference Include="PPserver\PPserver.csproj">
       <Project>{4f7669ff-7330-45cb-8705-187782008592}</Project>
       <Name>PPserver</Name>

@@ -45,21 +45,19 @@ namespace pp
             userState.user_state = PPserver.UserManagement._UserState.offline;
             Request request = new Request(userData,userState);
             PP.mysocket.send(request);
-            //接收服务器respond
-            //while (!PP.mysocket.received()) ;
-            //Command command = PP.mysocket.getData();
-            //if(command.command_type==_Type.respond)
-            //{
-            //    Respond respond = command as Respond;
-            //    if(respond.user_data!=null)
-            //    {
-            //        _PhoneNumber = respond.user_data.phone;
-            //        _PSW = respond.user_data.psw;
-            //    }
-            //}
-            _PhoneNumber = "123456789";
-            _PSW = "123";
 
+            //接收服务器respond
+            while (!PP.mysocket.receivedNew()) ;
+            Command command = PP.mysocket.getData();
+            if (command.command_type == _Type.respond)
+            {
+                Respond respond = command as Respond;
+                if (respond.user_data != null)
+                {
+                    _PhoneNumber = respond.user_data.phone;
+                    _PSW = respond.user_data.psw;
+                }
+            }
 
             string ss = _PhoneNumber.Substring(3, 4);
             string phone = _PhoneNumber.Replace(ss, "****");
