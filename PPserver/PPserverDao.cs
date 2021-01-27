@@ -28,6 +28,11 @@ namespace PPserver
                 cmd = new SqlCommand(sql, sc);
             return cmd;
         }
+        /// <summary>
+        /// 运行或者更新
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         public int Execute(string sql)//更新操作
         {
             return command(sql).ExecuteNonQuery();

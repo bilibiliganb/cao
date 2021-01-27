@@ -29,7 +29,6 @@ namespace PPserver
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtport = new System.Windows.Forms.TextBox();
             this.txtlog = new System.Windows.Forms.TextBox();
             this.txtMsg = new System.Windows.Forms.TextBox();
@@ -37,17 +36,9 @@ namespace PPserver
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(55, 35);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "192.168.0.106";
-            // 
             // txtport
             // 
-            this.txtport.Location = new System.Drawing.Point(161, 35);
+            this.txtport.Location = new System.Drawing.Point(12, 2);
             this.txtport.Name = "txtport";
             this.txtport.Size = new System.Drawing.Size(100, 21);
             this.txtport.TabIndex = 1;
@@ -55,25 +46,25 @@ namespace PPserver
             // 
             // txtlog
             // 
-            this.txtlog.Location = new System.Drawing.Point(55, 87);
+            this.txtlog.Location = new System.Drawing.Point(12, 29);
             this.txtlog.Multiline = true;
             this.txtlog.Name = "txtlog";
             this.txtlog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtlog.Size = new System.Drawing.Size(553, 182);
+            this.txtlog.Size = new System.Drawing.Size(596, 354);
             this.txtlog.TabIndex = 2;
             // 
             // txtMsg
             // 
-            this.txtMsg.Location = new System.Drawing.Point(55, 300);
+            this.txtMsg.Location = new System.Drawing.Point(12, 398);
             this.txtMsg.Multiline = true;
             this.txtMsg.Name = "txtMsg";
             this.txtMsg.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtMsg.Size = new System.Drawing.Size(553, 75);
+            this.txtMsg.Size = new System.Drawing.Size(596, 40);
             this.txtMsg.TabIndex = 3;
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(317, 33);
+            this.btnStart.Location = new System.Drawing.Point(136, 0);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(110, 23);
             this.btnStart.TabIndex = 4;
@@ -83,9 +74,9 @@ namespace PPserver
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(644, 300);
+            this.button2.Location = new System.Drawing.Point(624, 398);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(121, 48);
+            this.button2.Size = new System.Drawing.Size(121, 40);
             this.button2.TabIndex = 5;
             this.button2.Text = "发送";
             this.button2.UseVisualStyleBackColor = true;
@@ -102,7 +93,6 @@ namespace PPserver
             this.Controls.Add(this.txtMsg);
             this.Controls.Add(this.txtlog);
             this.Controls.Add(this.txtport);
-            this.Controls.Add(this.textBox1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -112,8 +102,6 @@ namespace PPserver
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox txtport;
         private System.Windows.Forms.TextBox txtlog;
         private System.Windows.Forms.TextBox txtMsg;

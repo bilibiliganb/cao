@@ -100,6 +100,8 @@ namespace PPserver
                     //执行注册账号
                     DoRegister(command);
 
+                    //执行转发消息
+
                 }
                 catch { }
             }
@@ -115,11 +117,13 @@ namespace PPserver
                 Request rs = (Request)command;
                 if (rs.user_data.userid == "")
                     ShowMsg("新用户发送了注册请求");
-                if (rs.user_data.phone != "")
+                if (rs.user_data.phone != ""&&rs.user_data.sex!="")
                 {
+                    
                     Dao dao = new Dao();
                     double ID = random.Next(99999, 1000000);
                     string sql = $"insert into t_userbase values('{ID}','{rs.user_data.psw}','{rs.user_data.name}','{rs.user_data.sex}','{rs.user_data.birth}','{rs.user_data.phone}','123.jpg')";
+                    dao.Execute(sql);
                     rs.user_data.userid = ID.ToString();
                     UserData user_data = new UserData();
                     user_data.userid = rs.user_data.userid;

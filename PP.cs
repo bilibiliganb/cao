@@ -62,7 +62,7 @@ namespace pp
                 if (respond.user_data != null)
                 {
                     MessageBox.Show("登录成功");
-                    Usermain usermain = new Usermain();
+                    Usermain usermain = new Usermain(textBox1.Text);
                     this.Hide();
                     usermain.ShowDialog();
                     this.Close();
