@@ -15,11 +15,11 @@ namespace pp
     namespace Correspondence
     {
 
-       public class Socket
+        public class MySocket
         {
             class SocketObject
             {
-                public System.Net.Sockets.Socket socketWorker;
+                public Socket socketWorker = null;
                 public const int allocate = 1024 * 1024 * 2;
                 public byte[] buffer = null;
                 public StringBuilder str = new StringBuilder();
@@ -33,7 +33,7 @@ namespace pp
             }
 
 
-            System.Net.Sockets.Socket socketSend;
+            Socket socketSend;
             string ip;
             string point;
             Entity entity = new Entity();
@@ -42,7 +42,7 @@ namespace pp
             /// 
             /// </summary>
             /// <param name="socket"></param>
-            public Socket(System.Net.Sockets.Socket socket)
+            public MySocket(Socket socket)
             {
                 this.socketSend = socket;
                 string[] str = socket.RemoteEndPoint.ToString().Split(':');
@@ -51,15 +51,15 @@ namespace pp
             }
 
 
-            public Socket(string ip, string point)
+            public MySocket(string ip, string point)
             {
-                socketSend = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                socketSend = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 this.ip = ip; this.point = point;
             }
 
             public void connect()
             {
-                if (!socketSend.Connected)
+                if (!socketSend.Connected) 
                 {
                     IPEndPoint i = new IPEndPoint(IPAddress.Parse(ip), Int32.Parse(point));
                     socketSend.Connect(i);
@@ -72,13 +72,13 @@ namespace pp
 
             private void Receive(object o)
             {
-                System.Net.Sockets.Socket socketSend = (System.Net.Sockets.Socket)o;
+                Socket socketSend = (Socket)o;
                 while (true)
                 {
                     byte[] buffer = new byte[1024 * 1024 * 2];
                     int r=socketSend.Receive(buffer);
                     if (r == 0) break;
-                    entity.command = Interpreter.deserialize(Encoding.UTF8.GetString(buffer,0,r));  //解析需要传递个数
+                    entity.command = Interpreter.deserialize(buffer);  
                     entity.datetime = DateTime.Now;
                 }
             }
@@ -87,123 +87,116 @@ namespace pp
             {
                 try
                 {
-                    string str = Interpreter.getSerialization(comd);
-                    byte[] buffer = System.Text.Encoding.UTF8.GetBytes(str);
+                    byte[] buffer = Interpreter.getSerialization(comd); 
                     socketSend.Send(buffer);
                 }
                 catch { }
             }
 
-            //public void asyncConnect(ManualResetEvent allDone)
-            //{
-            //    try
-            //    {
-            //        SocketObject sb = new SocketObject();
-            //        if (allDone != null)
-            //            sb.allDone = allDone;
-            //        sb.socketWorker = socketWatch;
-            //        sb.socketWorker.BeginAccept(new AsyncCallback(acceptCallBack), sb);
-            //    }
-            //    catch
-            //    {
+            public void asyncConnect(ManualResetEvent allDone)
+            {
+                try
+                {
+                    SocketObject sb = new SocketObject();
+                    if (allDone != null)
+                        sb.allDone = allDone;
+                    sb.socketWorker = socketSend;
+                    sb.socketWorker.BeginConnect(new IPEndPoint(IPAddress.Parse(ip),Int32.Parse(point)),new AsyncCallback(connectCallBack), sb);
+                }
+                catch
+                {
 
-            //    }
-            //}
+                }
+            }
 
-            //private void acceptCallBack(IAsyncResult iar)
-            //{
-            //    try
-            //    {
-            //        SocketObject sb = (SocketObject)iar.AsyncState;
-            //        Socket socketSend = sb.socketWorker.EndAccept(iar);
-            //        socketSends.Add(socketSend.RemoteEndPoint.ToString(), socketSend);
-            //        Console.WriteLine(socketSend.RemoteEndPoint.ToString() + "连接成功");
-            //        if (sb.allDone != null)
-            //        {
-            //            sb.allDone.Set();
-            //        }
-            //    }
-            //    catch
-            //    {
+            private void connectCallBack(IAsyncResult iar)
+            {
+                try
+                {
+                    SocketObject sb = (SocketObject)iar.AsyncState;
+                    sb.socketWorker.EndConnect(iar);
+                }
+                catch
+                {
 
-            //    }
-            //}
+                }
+            }
 
-            //public void asyncSend(Command comd, string socket, ManualResetEvent allDone)
-            //{
-            //    try
-            //    {
-            //        SocketObject sb = new SocketObject();
-            //        sb.socketWorker = socketSends[socket];
-            //        if (allDone != null)
-            //        {
-            //            sb.allDone = allDone;
-            //        }
-            //        byte[] buffer = Encoding.UTF8.GetBytes(Interpreter.getSerialization(comd));
-            //        sb.socketWorker.BeginSend(buffer, 0, buffer.Length, 0, new AsyncCallback(sendCallBack), sb);
-            //    }
-            //    catch
-            //    {
+            public void asyncSend(Command comd, ManualResetEvent allDone)
+            {
+                try
+                {
+                    SocketObject sb = new SocketObject();
+                    sb.socketWorker = socketSend;
+                    if (allDone != null)
+                    {
+                        sb.allDone = allDone;
+                    }
+                    byte[] buffer = Interpreter.getSerialization(comd);
+                    sb.socketWorker.BeginSend(buffer, 0, buffer.Length, 0, new AsyncCallback(sendCallBack), sb);
+                }
+                catch
+                {
 
-            //    }
-            //}
+                }
+            }
 
-            //private void sendCallBack(IAsyncResult iar)
-            //{
-            //    try
-            //    {
-            //        SocketObject sb = (SocketObject)iar.AsyncState;
-            //        int b = sb.socketWorker.EndSend(iar);
-            //        Console.WriteLine("服务器发送了{0}字节", b);
-            //        if (sb.allDone != null)
-            //        {
-            //            sb.allDone.Set();
-            //        }
-            //    }
-            //    catch
-            //    {
+            private void sendCallBack(IAsyncResult iar)
+            {
+                try
+                {
+                    SocketObject sb = (SocketObject)iar.AsyncState;
+                    int b = sb.socketWorker.EndSend(iar);
+                    Console.WriteLine("客户端发送了{0}字节", b);
+                    if (sb.allDone != null)
+                    {
+                        sb.allDone.Set();
+                    }
+                }
+                catch
+                {
 
-            //    }
-            //}
-            //public void asyncReceive(string socket, ManualResetEvent allDone)
-            //{
-            //    try
-            //    {
-            //        SocketObject sb = new SocketObject();
-            //        if (allDone != null)
-            //            sb.allDone = allDone;
-            //        sb.socketWorker = socketSends[socket];
-            //        sb.buffer = new byte[SocketObject.allocate];
-            //        sb.socketWorker.BeginReceive(sb.buffer, 0, SocketObject.allocate, 0, new AsyncCallback(receiveCallBack), sb);
-            //    }
-            //    catch
-            //    {
+                }
+            }
+            public void asyncReceive(string socket, ManualResetEvent allDone)
+            {
+                try
+                {
+                    SocketObject sb = new SocketObject();
+                    if (allDone != null)
+                        sb.allDone = allDone;
+                    sb.socketWorker = socketSend;
+                    sb.buffer = new byte[SocketObject.allocate];
+                    sb.socketWorker.BeginReceive(sb.buffer, 0, SocketObject.allocate, 0, new AsyncCallback(receiveCallBack), sb);
+                }
+                catch
+                {
 
-            //    }
-            //}
+                }
+            }
 
-            //private void receiveCallBack(IAsyncResult iar)
-            //{
-            //    try
-            //    {
-            //        SocketObject sb = (SocketObject)iar.AsyncState;
-            //        int b = sb.socketWorker.EndReceive(iar);
-            //        if (b > 0)
-            //        {
-            //            sb.str.Append(Encoding.UTF8.GetString(sb.buffer));
-            //            entity.command = Interpreter.deserialize(sb.str.ToString());
-            //            entity.datetime = DateTime.Now;
-            //        }
-            //        if (sb.allDone != null)
-            //        {
-            //            sb.allDone.Set();
-            //        }
-            //    }
-            //    catch
-            //    {
+            private void receiveCallBack(IAsyncResult iar)
+            {
+                try
+                {
+                    SocketObject sb = (SocketObject)iar.AsyncState;
+                    int b = sb.socketWorker.EndReceive(iar);
+                    if (b > 0)
+                    {
+                        sb.str.Append(Encoding.UTF8.GetString(sb.buffer));
+                        entity.command = Interpreter.deserialize(sb.buffer);
+                        entity.datetime = DateTime.Now;
+                    }
+                    if (sb.allDone != null)
+                    {
+                        sb.allDone.Set();
+                    }
+                }
+                catch
+                {
 
-            //    }
-            //}
+                }
+            }
 
             public void close()
             {

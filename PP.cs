@@ -17,7 +17,8 @@ namespace pp
     public partial class PP : Form
     {
         public static string User_id = "";
-        public static Socket mysocket = new Socket("127.0.0.1","9090"); //输入ip和point
+        public static string User_psw = "";
+        public static MySocket mysocket = new MySocket("127.0.0.1","9090"); //输入ip和point
         public PP()
         {
             InitializeComponent();
@@ -61,6 +62,10 @@ namespace pp
                 if (respond.user_data != null)
                 {
                     MessageBox.Show("登录成功");
+                    Usermain usermain = new Usermain(textBox1.Text);
+                    this.Hide();
+                    usermain.ShowDialog();
+                    this.Close();
                     count = 3;
                 }
                 else
@@ -97,6 +102,26 @@ namespace pp
             findBack.ShowDialog();
             this.Show();
             textBox1.Text = User_id;
+        }
+
+        private void PP_Load(object sender, EventArgs e)
+        {
+            linkLabel1.LinkBehavior = LinkBehavior.NeverUnderline;
+            linkLabel1.LinkColor = Color.Black;
+            linkLabel2.LinkBehavior = LinkBehavior.NeverUnderline;
+            linkLabel2.LinkColor = Color.Black;
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            mysocket.connect();
+            UserRegister userRegister = new UserRegister();
+            this.Hide();
+            userRegister.ShowDialog();
+            this.Show();
+            textBox1.Text = User_id;
+            textBox2.Text = User_psw;
+
         }
     }
 }

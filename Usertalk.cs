@@ -20,29 +20,42 @@ namespace pp
             InitializeComponent();
         }
         Socket socketSend;
-        private void button1_Click(object sender, EventArgs e)
+
+        private string _friendID;
+        private string _friendNM;
+        public string FriendID { get => _friendID; set => _friendID = value; }
+        public string FriendNM { get => _friendNM; set => _friendNM = value; }
+
+
+        public Usertalk(string Friend_ID,string Friend_NM)
         {
-            try
-            {
-                //创建负责通信的Socket
-                socketSend = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                IPAddress ip = IPAddress.Parse(txtServer.Text);
-                IPEndPoint point = new IPEndPoint(ip, Convert.ToInt32(txtport.Text));
-                //获得要连接的原创服务器应用的IP地址和端口号
-                socketSend.Connect(point);
-
-
-
-                Showmsg("连接成功");
-
-                //开启一个新线程不停接收服务端发来的消息
-                Thread th = new Thread(Recive);
-                th.IsBackground = true;
-                th.Start();
-            }
-            catch { }
-
+            InitializeComponent();
+            FriendID = Friend_ID;
+            FriendNM = Friend_NM;
         }
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        //创建负责通信的Socket
+        //        socketSend = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        //        IPAddress ip = IPAddress.Parse(txtServer.Text);
+        //        IPEndPoint point = new IPEndPoint(ip, Convert.ToInt32(txtport.Text));
+        //        //获得要连接的原创服务器应用的IP地址和端口号
+        //        socketSend.Connect(point);
+
+
+
+        //        Showmsg("连接成功");
+
+        //        //开启一个新线程不停接收服务端发来的消息
+        //        Thread th = new Thread(Recive);
+        //        th.IsBackground = true;
+        //        th.Start();
+        //    }
+        //    catch { }
+
+        //}
 
         void Showmsg(string str)
         {
@@ -69,6 +82,12 @@ namespace pp
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string _friend = FriendNM;
+            label1.Text = "正在与"+ _friend+ "进行聊天";
+            string path = @"123.jpg";
+            Image image = Image.FromFile(path);
+            pictureBox1.Image = image;
+            pictureBox2.Image = image;
             Control.CheckForIllegalCrossThreadCalls = false;
         }
 

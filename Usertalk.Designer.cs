@@ -29,96 +29,99 @@ namespace pp
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtServer = new System.Windows.Forms.TextBox();
-            this.txtport = new System.Windows.Forms.TextBox();
             this.txtlog = new System.Windows.Forms.TextBox();
             this.txtMsg = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnSend = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
-            // 
-            // txtServer
-            // 
-            this.txtServer.Location = new System.Drawing.Point(72, 53);
-            this.txtServer.Name = "txtServer";
-            this.txtServer.Size = new System.Drawing.Size(100, 21);
-            this.txtServer.TabIndex = 0;
-            this.txtServer.Text = "192.168.0.106";
-            // 
-            // txtport
-            // 
-            this.txtport.Location = new System.Drawing.Point(189, 53);
-            this.txtport.Name = "txtport";
-            this.txtport.Size = new System.Drawing.Size(100, 21);
-            this.txtport.TabIndex = 1;
-            this.txtport.Text = "9090";
             // 
             // txtlog
             // 
-            this.txtlog.Location = new System.Drawing.Point(72, 90);
+            this.txtlog.Location = new System.Drawing.Point(9, 82);
             this.txtlog.Multiline = true;
             this.txtlog.Name = "txtlog";
             this.txtlog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtlog.Size = new System.Drawing.Size(682, 101);
+            this.txtlog.Size = new System.Drawing.Size(604, 157);
             this.txtlog.TabIndex = 2;
             // 
             // txtMsg
             // 
-            this.txtMsg.Location = new System.Drawing.Point(72, 256);
+            this.txtMsg.Location = new System.Drawing.Point(9, 265);
             this.txtMsg.Multiline = true;
             this.txtMsg.Name = "txtMsg";
             this.txtMsg.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtMsg.Size = new System.Drawing.Size(682, 65);
+            this.txtMsg.Size = new System.Drawing.Size(604, 173);
             this.txtMsg.TabIndex = 3;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(326, 53);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "连接";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(526, 355);
+            this.btnSend.Location = new System.Drawing.Point(518, 403);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(128, 35);
+            this.btnSend.Size = new System.Drawing.Size(78, 35);
             this.btnSend.TabIndex = 5;
             this.btnSend.Text = "发送消息";
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.button2_Click);
             // 
-            // Form1
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(659, 82);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(129, 157);
+            this.pictureBox1.TabIndex = 6;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(659, 265);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(129, 157);
+            this.pictureBox2.TabIndex = 7;
+            this.pictureBox2.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(32, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(146, 31);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "与xxx的聊天";
+            // 
+            // Usertalk
             // 
             this.AcceptButton = this.btnSend;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnSend);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.txtMsg);
             this.Controls.Add(this.txtlog);
-            this.Controls.Add(this.txtport);
-            this.Controls.Add(this.txtServer);
-            this.Name = "Form1";
+            this.Name = "Usertalk";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtServer;
-        private System.Windows.Forms.TextBox txtport;
         private System.Windows.Forms.TextBox txtlog;
         private System.Windows.Forms.TextBox txtMsg;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label label1;
     }
 }
 

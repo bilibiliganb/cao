@@ -13,7 +13,7 @@ namespace PPserver
         SqlConnection sc;
         public SqlConnection connect()  //默认连接的pp库
         {
-            string str = @"Data Source=(local)\HQ;Initial Catalog=pp;Integrated Security=True";//数据库链接字符串
+            string str = @"Data Source=(local)\XA;Initial Catalog=pp;Integrated Security=True";//数据库链接字符串
             sc = new SqlConnection(str);//创建数据库链接对象
             sc.Open();//打开数据库
             return sc;//返回数据库
@@ -28,6 +28,11 @@ namespace PPserver
                 cmd = new SqlCommand(sql, sc);
             return cmd;
         }
+        /// <summary>
+        /// 运行或者更新
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
         public int Execute(string sql)//更新操作
         {
             return command(sql).ExecuteNonQuery();
